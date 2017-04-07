@@ -1,16 +1,14 @@
-var width = 1200;
 var height = 800;
-
+var width = 800;
+var svg = d3.select("#graph");
 var color = d3.scale.category10();
+var force = d3.layout.force() //links nodes together
+    .charge(-180)
+    .linkDistance(70)
+    .size([width, height]);
 
-var force = d3.layout.force()
-              .charge(-180)
-              .linkDistance(70)
-              .size([width, height]);
 
-var svg = d3.select("#cloud");
-
-d3.json("cloud.json", function(json) {
+d3.json("relation.json", function(json) { //start of creating nodes and links
     force
       .nodes(json.nodes)
       .links(json.links)

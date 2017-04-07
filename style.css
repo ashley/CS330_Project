@@ -1,15 +1,21 @@
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
-
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 3px;
-}
-
 text.label {
-font: 10px sans-serif;
-pointer-events: none;
-text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+	font: 10px sans-serif;
+	pointer-events: none;
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+circle.node {
+    stroke: #fff;
+    stroke-width: 3px;
+}
+
+line.link {
+    stroke-width: 2px;
+    stroke: #999;
+    stroke-opacity: 0.6;
+}
+
+marker#arrow {
+    stroke: #999;
+    fill: #999;
 }
