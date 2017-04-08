@@ -1,5 +1,5 @@
-var height = 800;
-var width = 800;
+var height = 500;
+var width = 500;
 var svg = d3.select("#graph");
 var color = d3.scale.category10();
 var force = d3.layout.force() //links nodes together
