@@ -1,3 +1,4 @@
+/*Graph Network*/
 text.label {
 	font: 10px sans-serif;
 	pointer-events: none;
@@ -18,4 +19,59 @@ line.link {
 marker#arrow {
     stroke: #999;
     fill: #999;
+}
+
+
+/* Filter Control */
+body {
+  font-family: Arial, sans-serif;
+}
+
+a, a:visited {
+  color: #4d4d4d;
+  text-decoration: underline;
+}
+
+#container {
+  width: 940px;
+  padding: 5px 0 10px 0;
+  margin: auto;
+}
+
+#main {
+  clear: both;
+}
+
+#controls {
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.control {
+  float: left;
+  padding-left: 20px;
+}
+
+.control a {
+  color: black;
+  font-size: 12px;
+  padding: 5px;
+  background: #E2E2E2;
+  cursor: pointer;
+  margin-right: 3px;
+  text-decoration: none;
+}
+
+.control a:hover {
+  text-decoration: underline;
+}
+
+.control a.active {
+  color: white;
+  background: #555;
+}
+
+footer p {
+  text-align: center;
 }

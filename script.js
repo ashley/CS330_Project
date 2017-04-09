@@ -6,47 +6,74 @@ var force = d3.layout.force() //links nodes together
     .charge(-180)
     .linkDistance(70)
     .size([width, height]);
+var jsonFile = "Movies5.json"
 
+function jsonFileChooser(){
+    if (document.getElementById("m5").selected){
+        jsonFile = "Movies5.json";
+        console.log("Movie 5 is selected");
+    }
+    else if (document.getElementById("m4").selected){
+        jsonFile = "Movies4.json";
+        console.log("Movie 4 is selected");
+    }
+    else if (document.getElementById("m3").selected){
+        jsonFile = "Movies3.json";
+        console.log("Movie 3 is selected");
+    }
+    else if (document.getElementById("m2").selected){
+        jsonFile = "Movies2.json";
+        console.log("Movie 2 is selected");
+    }
+    else if (document.getElementById("m1").selected){
+        jsonFile = "Movies1.json";
+        console.log("Movie 1 is selected");
+    }
+    execute(jsonFile);
+}
 
-d3.json("relation.json", function(json) { //start of creating nodes and links
-    force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
+function execute(jsonFile){
 
-    var links = svg.append("g").selectAll("line.link")
-        .data(force.links())
-        .enter().append("line")
-        .attr("class", "link")
-        .attr("marker-end", "url(#arrow)");
+    d3.json(jsonFile, function(json) { //start of creating nodes and links
+        force
+          .nodes(json.nodes)
+          .links(json.links)
+          .start();
 
-    var nodes = svg.append("g").selectAll("circle.node")
-        .data(force.nodes())
-        .enter().append("circle")
-        .attr("class", "node")
-        .attr("r", 8)
-        .style("fill", function(d) { return color(d.group); })
-        .call(force.drag);
+        var links = svg.append("g").selectAll("line.link")
+            .data(force.links())
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("marker-end", "url(#arrow)");
 
-    var texts = svg.append("g").selectAll("circle.node")
-        .data(force.nodes())
-        .enter().append("text")
-        .attr("class", "label")
-        .text(function(d) { return d.name; })
-        .call(force.drag);
+        var nodes = svg.append("g").selectAll("circle.node")
+            .data(force.nodes())
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 8)
+            .style("fill", function(d) { return color(d.group); })
+            .call(force.drag);
 
-    force.on("tick", function() {
-        links.attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
+        var texts = svg.append("g").selectAll("circle.node")
+            .data(force.nodes())
+            .enter().append("text")
+            .attr("class", "label")
+            .text(function(d) { return d.name; })
+            .call(force.drag);
 
-        nodes.attr("cx", function(d) { return d.x; })
-            .attr("cy", function(d) { return d.y; });
+        force.on("tick", function() {
+            links.attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
 
-        texts.attr("x", function(d) { return d.x; })
-            .attr("y", function(d) { return d.y; });
+            nodes.attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
 
+            texts.attr("x", function(d) { return d.x; })
+                .attr("y", function(d) { return d.y; });
+
+        });
     });
 
-});
+}
