@@ -1,4 +1,4 @@
-{ 
+testData = { 
 	"nodes":[ 
 		{ "name": "Johnny Depp", "group": 1 },
         { "name": "Geoffrey Rush", "group": 1 },
