@@ -15,11 +15,11 @@ function tabChange(evt, pageName) {
 }
 
 function optionTest(){
-    var list = document.getElementById("actors_list");
+    actors_list  = document.getElementById("actors_list");
     actor_to_actor.forEach(function(key,value){
        var option = document.createElement('option');
        option.value = value;
-       list.appendChild(option);
+       actors_list.appendChild(option);
     });
 }
 
@@ -39,8 +39,9 @@ function calculate(){
 
 function printPretty(actors, movies){
 	var string = "";
-	for (var i in movies){
-		string += actors[i*2] + " and " + actors[i*2+1] + " worked with each other in " + movies[i] + ". <br>";
+	for (var i=0;i<actors.length-1;i++){
+		console.log(i);
+		string += actors[i] + " and " + actors[i+1] + " worked with each other in " + movies[i] + ". <br>";
 	}
 	return string;
 }

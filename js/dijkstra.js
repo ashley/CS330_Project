@@ -119,6 +119,10 @@ function findMovieLinks(arr){
 	return results;
 }
 
+function directConnection(src,dest){
+	return actor_to_actor.get(src).has(dest);
+}
+
 //var newSet = new Set();
 //console.log(connectionExist("Johnny Depp","Tom Hanks",[],1,newSet));
 //Test: console.log(breadthFirst("Johnny Depp","Tom Hanks"));
