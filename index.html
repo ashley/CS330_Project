@@ -54,8 +54,25 @@
                 <p id="calculate_results"></p>
             </div>
             <div id="Game" class="tabcontent">
-              <h3>Game</h3>
-              <p>I challenge you to connect these two actors.</p>
+                <h3>Game</h3>
+                 <p>I challenge you to connect these two actors.</p>
+                <button onclick="generateGame()">Start Game</button>
+                <div id="gameDisplay">
+                    <p id="gameNames"></p>
+                    <input id="deg1" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <input id="deg2" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <input id="deg3" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <input id="deg4" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <input id="deg5" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <input id="deg6" list="actors_list" />
+                    <datalist id="actors_list"></datalist>
+                    <button onclick="checkGame()">Submit Answer</button>
+                </div>
             </div>
             <!--Footer-->
             <footer>
@@ -64,6 +81,7 @@
             <!--Scripts-->
             <script src="js/setup.js" type="text/javascript"></script>  
             <script src="js/script.js" type="text/javascript"></script>
+            <script src="js/game.js" type="text/javascript"></script>
         </div> 
     </body>
 </html>

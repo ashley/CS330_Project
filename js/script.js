@@ -1,4 +1,11 @@
+var height = 500;
+var width = 500;
+var svg = d3.select("#graph");
 var color = d3.scale.category10();
+var force = d3.layout.force() //links nodes together
+    .charge(-180)
+    .linkDistance(70)
+    .size([width, height]);
 var jsonFile = "json/test.json"
 
 function jsonFileChooser(){
@@ -25,48 +32,50 @@ function jsonFileChooser(){
     execute(jsonFile);
 }
 
-function execute(jsonFile){      
-    var width = 930,
-        height = 500;
+function execute(jsonFile){
 
-    var n = 100,
-        nodes = testData.nodes,
-        links = testData.links;
+    d3.json(jsonFile, function(json) { //start of creating nodes and links
+        force
+          .nodes(testData.nodes)
+          .links(testData.links)
+          .start();
 
-    var force = d3.layout.force()
-        .nodes(nodes)
-        .links(links)
-        .size([width, height]);
+        var links = svg.append("g").selectAll("line.link")
+            .data(force.links())
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("marker-end", "url(#arrow)");
 
-    var svg = d3.select("#graph");
+        var nodes = svg.append("g").selectAll("circle.node")
+            .data(force.nodes())
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 8)
+            .style("fill", function(d) { 
+                    return color(d.group); 
+                })
+            .call(force.drag);
 
-    var loading = svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", height / 2)
-        .attr("dy", ".35em")
-        .style("text-anchor", "middle")
-        .text("Simulating. One moment please…");
+        var texts = svg.append("g").selectAll("circle.node")
+            .data(force.nodes())
+            .enter().append("text")
+            .attr("class", "label")
+            .text(function(d) { return d.name; })
+            .call(force.drag);
 
-    setTimeout(function() {
-      force.start();
-      for (var i = n * n; i > 0; --i) force.tick();
-      force.stop();
+        force.on("tick", function() {
+            links.attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
 
-      svg.selectAll("line")
-          .data(links)
-        .enter().append("line")
-          .attr("x1", function(d) { return d.source.x; })
-          .attr("y1", function(d) { return d.source.y; })
-          .attr("x2", function(d) { return d.target.x; })
-          .attr("y2", function(d) { return d.target.y; });
+            nodes.attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
 
-      svg.selectAll("circle")
-          .data(nodes)
-        .enter().append("circle")
-          .attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; })
-          .attr("r", 4.5);
+            texts.attr("x", function(d) { return d.x; })
+                .attr("y", function(d) { return d.y; });
 
-      loading.remove();
-    }, 10);             
+        });
+    });
+
 }

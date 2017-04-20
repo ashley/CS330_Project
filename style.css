@@ -12,7 +12,7 @@ circle.node {
 
 line.link {
     stroke-width: 0.1px;
-    stroke: red;
+    stroke: #25609C;
     stroke-opacity: 1;
 }
 
@@ -21,6 +21,10 @@ marker#arrow {
     fill: #999;
 }
 
+/* Game */
+#gameDisplay{
+    visibility: hidden;
+}
 
 /* Filter Control */
 body {
