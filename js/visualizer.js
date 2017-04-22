@@ -6,10 +6,9 @@ var force = d3.layout.force() //links nodes together
     .charge(-180)
     .linkDistance(70)
     .size([width, height]);
-var jsonFile = "json/test.json"
 
 function jsonFileChooser(){
-    if (document.getElementById("m5").selected){
+    /*if (document.getElementById("m5").selected){
         jsonFile = "json/test.json";
         console.log("Movie 5 is selected");
     }
@@ -29,7 +28,10 @@ function jsonFileChooser(){
         jsonFile = "json/Movies1.json";
         console.log("Movie 1 is selected");
     }
-    execute(jsonFile);
+    else{
+        console.log("test.json by default");
+    }*/
+    execute("json/Movies1.json");
 }
 
 function execute(jsonFile){

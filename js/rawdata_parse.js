@@ -42,51 +42,6 @@ function iterate_cast_array(map,actor,movieid){
 	}
 }
 
-function list_of_movies(actor){
-	if(actor_to_movie.has(actor)){
-		var arr = [];
-		for(let movieid of actor_to_movie.get(actor)){
-			arr.push(movie_to_movie.get(movieid));
-		}
-		return arr;
-	}
-	else{
-		console.log("Actor does not exist.");
-		return undefined;
-	}
-}
-
-function scrapGraph(){
-	var names = ["Johnny Depp", "Geoffrey Rush", "Stellan Skarsgård", "Albert Brooks", "Allison Janney", "Siobhan Fallon", "Tom Hanks"];
-	var tracker = new Set();
-	for(var i in names){
-		tracker.add(names[i]);
-	}
-
-	for(var i=0;i<7;i++){
-		for(let actor of actor_to_actor.get(names[i])){
-			if(!tracker.has(actor)){
-				tracker.add(actor);
-				names.push(actor);
-			}
-		}
-	}
-
-	for(var i in names){
-		//console.log("{ " + "\"name\": " + "\"" + names[i] + "\"\, \"group\": 1 },");	
-		for(var a in names){
-			if(actor_to_actor.get(names[i]).has(names[a])){
-				console.log("{ " + "\"source\": " + i +", \"target\": " + a + ", \"value\": 1 },");	
-			}
-		}
-	}
-	console.log(actor_to_actor.get(names[0]).size); //81
-
-}
-
-
-
-
 function containsNode(name, arr){
     for(var i =0;i<arr.length; i++){
         if(arr[i].name == name){

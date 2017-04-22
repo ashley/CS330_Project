@@ -32,24 +32,6 @@ function breadthFirst(root, dest){
 	}
 	return tail
 }
-function getArrayDiff(a, b) {
-    var ret = [];
-    if (!(Array.isArray(a) && Array.isArray(b))) {
-        return ret;
-    }
-    var i;
-    var key;
-
-    for (i = a.length - 1; i >= 0; i--) {
-      key = a[i];
-      if (-1 === b.indexOf(key)) {
-        ret.push(key);
-      }
-    }
-
-    return ret;
-}
-//TEST: console.log(breadthFirst("Johnny Depp"));
 
 function depthFirst(root, dest){
 	var visited = new Set();
@@ -117,6 +99,20 @@ function findMovieLinks(arr){
 		results.push(findMovie(arr[i],arr[i+1]));
 	}
 	return results;
+}
+
+function list_of_movies(actor){
+	if(actor_to_movie.has(actor)){
+		var arr = [];
+		for(let movieid of actor_to_movie.get(actor)){
+			arr.push(movie_to_movie.get(movieid));
+		}
+		return arr;
+	}
+	else{
+		console.log("Actor does not exist.");
+		return undefined;
+	}
 }
 
 function directConnection(src,dest){
