@@ -2,7 +2,7 @@ const MovieDB = require('moviedb')('1072b9e82e403bdcaab79c43aaa1a4a1');
 
 
 // Promise
-var willIGetNewPhone = new Promise(
+var willGetNewMovie = new Promise(
     function (resolve, reject) {
     }
 );
@@ -10,17 +10,13 @@ var willIGetNewPhone = new Promise(
 
 
 // call our promise
-var askMom = function () {
-    willIGetNewPhone
+var getMovie = function () {
+    willGetNewMovie
         .then(function (fulfilled) {
-            // yay, you got a new phone
             console.log(fulfilled);
-         // output: { brand: 'Samsung', color: 'black' }
         })
         .catch(function (error) {
-            // oops, mom don't buy it
             console.log(error.message);
-         // output: 'mom is not happy'
         });
 };
 

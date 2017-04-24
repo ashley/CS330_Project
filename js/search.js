@@ -1,3 +1,4 @@
+//breath-first search
 function breadthFirst(root, dest){
 	var visited = new Set();
 	var tail = [];
@@ -5,11 +6,11 @@ function breadthFirst(root, dest){
 	if(actor_to_actor.has(root)){
 		queue.push(root);
 		visited.add(root);
-		while(queue.length != 0){
+		while(queue.length != 0){ //Until either all nodes have been visited or till dest node has been reached
 			var current = queue[0];
 			var added = false;
 			tail.push(current);
-			for(let c of actor_to_actor.get(current)){
+			for(let c of actor_to_actor.get(current)){ //Goes through each link in a node's connection
 				if(current == dest){
 					return tail;
 				}
@@ -33,6 +34,7 @@ function breadthFirst(root, dest){
 	return tail
 }
 
+//depth-first search
 function depthFirst(root, dest){
 	var visited = new Set();
 	var tail = [];
@@ -67,6 +69,7 @@ function depthFirst(root, dest){
 	return tail
 }
 
+//Resurive function that does not work, because graph is too big.
 function connectionExist(src,dest){
 	if(actor_to_actor.get(src).has(dest)){
 		return true;
@@ -84,15 +87,17 @@ function connectionExist(src,dest){
 	return false;
 }
 
+//Helper function to get movie between two actors
 function findMovie(actor1,actor2){
 	for(let movie of actor_to_movie.get(actor1)){
 		if(actor_to_movie.get(actor2).has(movie)){
 			return movie_to_movie.get(movie);
 		}
 	}
-	return undefined;
+	return undefined; //instead of throwing an error
 }
 
+//Helper function to get movies to print out with actor degrees
 function findMovieLinks(arr){
 	var results = [];
 	for(var i=0;i<arr.length-1;i++){
@@ -100,7 +105,7 @@ function findMovieLinks(arr){
 	}
 	return results;
 }
-
+//Helper function to get list of movies in an array
 function list_of_movies(actor){
 	if(actor_to_movie.has(actor)){
 		var arr = [];
@@ -115,6 +120,7 @@ function list_of_movies(actor){
 	}
 }
 
+//Helper function to to return boolean if there is a direct connection
 function directConnection(src,dest){
 	return actor_to_actor.get(src).has(dest);
 }

@@ -1,9 +1,10 @@
-var actors_list = makeActorsList(actor_to_actor);
+var actors_list = makeActorsList(actor_to_actor); //list of actors from actor_to_actor map. Makes it easier generate two actors
 var srcActor = "";
 var destActor = "";
 var degrees = [];
 var newDeg = [];
 
+//Parses answer submitted by users
 function submitValues(){
 	degrees = [];
 	degrees.push(document.getElementById("deg1").value);
@@ -14,6 +15,8 @@ function submitValues(){
 	degrees.push(document.getElementById("deg6").value);
 	console.log(degrees);
 	newDeg = [srcActor];
+
+	//Parses actors, in case user uses less than 6 actors.
 	var degIter = degrees[Symbol.iterator]();
 	for(let actor of degIter){
 		if(actor != ""){
@@ -24,12 +27,22 @@ function submitValues(){
 	degrees = newDeg;
 }
 
+//For Demo
+function generateDemoGame(){
+	srcActor = "Tom Hanks";
+	destActor = "Johnny Depp";
+	document.getElementById("gameNames").innerHTML = srcActor + " and " + destActor;
+	gameDisplay.style.visibility='visible';
+}
+
+//Executes generate function and controls front-end
 function generateGame(){
 	generateTwoActors();
 	document.getElementById("gameNames").innerHTML = srcActor + " and " + destActor;
 	gameDisplay.style.visibility='visible';
 }
 
+//Uses random to get actors from list
 function generateTwoActors(){
 	var srcActorNum = Math.floor(Math.random() * (actors_list.length - 0)) + 0;
 	srcActor = actors_list[srcActorNum];
@@ -40,6 +53,7 @@ function generateTwoActors(){
 	return [srcActor,destActor];
 }
 
+//Refers to first randoma actor chosen, and chooses a random number of deg to get to the second actor
 function generateDestActor(){
 		numOfDegs = Math.floor(Math.random() * (7 - 2)) + 0;
 		var nextActor = srcActor;
@@ -50,6 +64,7 @@ function generateDestActor(){
 		destActor = nextActor;
 }
 
+//Setups actor array
 function makeActorsList(map) {
     var arr = [];
     var mapIter = map.keys();
@@ -59,10 +74,11 @@ function makeActorsList(map) {
     return arr;
 }
 
+//Validate user game
 function checkGame(){
 	submitValues();
 	console.log(degrees);
-	if(checkEachConnection(degrees)){
+	if(checkEachConnection(degrees)){ //Executes actual validation
 		console.log("You Win");
 		document.getElementById("gameWin").innerHTML = "Good Job!";
 		document.getElementById("gameWin").style.color="green";
@@ -75,6 +91,7 @@ function checkGame(){
 
 }
 
+//Follows through the connection amde by the user
 function checkEachConnection(deg){
 	for(var i=0;i<deg.length-1;i++){
 		if(!directConnection(deg[i],deg[i+1])){
@@ -84,6 +101,7 @@ function checkEachConnection(deg){
 	return true;
 }
 
+//Gets random actor
 function randomActorFromSet(set){
 	var randNum = Math.floor(Math.random() * (set.size - 1)) + 0;
 	var setIter = set[Symbol.iterator]();

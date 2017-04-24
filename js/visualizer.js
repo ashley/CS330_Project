@@ -7,6 +7,7 @@ var force = d3.layout.force() //links nodes together
     .linkDistance(70)
     .size([width, height]);
 
+//Omitted for later construction
 function jsonFileChooser(){
     /*if (document.getElementById("m5").selected){
         jsonFile = "json/test.json";
@@ -34,6 +35,7 @@ function jsonFileChooser(){
     execute("json/Movies1.json");
 }
 
+//onclick
 function execute(jsonFile){
 
     d3.json(jsonFile, function(json) { //start of creating nodes and links
@@ -42,22 +44,25 @@ function execute(jsonFile){
           .links(testData.links)
           .start();
 
-        var links = svg.append("g").selectAll("line.link")
+        //adds links
+        var links = svg.append("g").selectAll("line.link") 
             .data(force.links())
             .enter().append("line")
             .attr("class", "link")
             .attr("marker-end", "url(#arrow)");
 
+        //adds nodes
         var nodes = svg.append("g").selectAll("circle.node")
             .data(force.nodes())
             .enter().append("circle")
             .attr("class", "node")
             .attr("r", 8)
             .style("fill", function(d) { 
-                    return color(d.group); 
+                    return color(d.group); //Used for later construction, when implementation of node color is needed
                 })
             .call(force.drag);
 
+        //adds names
         var texts = svg.append("g").selectAll("circle.node")
             .data(force.nodes())
             .enter().append("text")
@@ -65,6 +70,7 @@ function execute(jsonFile){
             .text(function(d) { return d.name; })
             .call(force.drag);
 
+        //updates location of nodes, links, and texts
         force.on("tick", function() {
             links.attr("x1", function(d) { return d.source.x; })
                 .attr("y1", function(d) { return d.source.y; })

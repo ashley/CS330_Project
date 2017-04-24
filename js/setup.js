@@ -1,3 +1,6 @@
+//Front-end option, not related to app function
+//File only includes functions
+
 function tabChange(evt, pageName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -14,6 +17,7 @@ function tabChange(evt, pageName) {
     evt.currentTarget.className += " active";
 }
 
+//Executes actor list in option input forms
 function optionTest(){
     actors_list  = document.getElementById("actors_list");
     actor_to_actor.forEach(function(key,value){
@@ -23,6 +27,6 @@ function optionTest(){
     });
 }
 
-makeActorMap();
-makeMovieMap();
-optionTest();
+makeActorMap(); //Setup links and nodes for the actor graph
+makeMovieMap(); //Setup helpful graph for movies
+optionTest(); //Setup option

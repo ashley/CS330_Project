@@ -4,8 +4,9 @@ var actor_to_movie = new Map();
 var actor_to_actor = new Map();
 var movie_to_movie = new Map();
 
+//Execute functions for actors map
 function makeActorMap(){
-	for(var raw_movie in rawdata_actors){
+	for(var raw_movie in rawdata_actors){ //Iterate each movie with each movie
 		for(var actor in rawdata_actors[raw_movie].cast){
 			iterate_cast_array(actor_to_movie, rawdata_actors[raw_movie].cast[actor], rawdata_actors[raw_movie].id);
 			iterate_actor_array(rawdata_actors[raw_movie].cast[actor],rawdata_actors[raw_movie].cast);
@@ -13,6 +14,7 @@ function makeActorMap(){
 	}
 }
 
+//Execute function for movie map
 function makeMovieMap(){
 	for(var raw_movie in rawdata_movies){
 		if (!movie_to_movie.has(rawdata_movies[raw_movie].id)){
@@ -21,9 +23,10 @@ function makeMovieMap(){
 	}
 }
 
+//Iterate though movie cast for index actor from makeActorMap
 function iterate_actor_array(actor,castArr){
 	for(var name in castArr){
-		if(!actor_to_actor.has(actor)){
+		if(!actor_to_actor.has(actor)){ //Checks if the actor exist
 			actor_to_actor.set(actor,new Set());
 		}
 		if(actor != castArr[name] && !actor_to_actor.get(actor).has(castArr[name])){
@@ -32,16 +35,18 @@ function iterate_actor_array(actor,castArr){
 	}
 }
 
+//Iterate though movie cast for index actor from makeActorMap
 function iterate_cast_array(map,actor,movieid){
 	if(!map.has(actor)){
 		map.set(actor,new Set());
-		map.get(actor).add(movieid);
+		map.get(actor).add(movieid); //adds movie id for actor_to_movie
 	}
 	else{
 		map.get(actor).add(movieid);
 	}
 }
 
+//help function to help find value in array
 function containsNode(name, arr){
     for(var i =0;i<arr.length; i++){
         if(arr[i].name == name){
