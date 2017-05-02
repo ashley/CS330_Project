@@ -1,7 +1,7 @@
 //breath-first search
 function breadthFirst(root, dest){
 	var visited = new Set();
-	var tail = [];
+	var tail = []; //track path
 	var queue = [];
 	if(actor_to_actor.has(root)){
 		queue.push(root);
@@ -42,11 +42,9 @@ function depthFirst(root, dest){
 	if(actor_to_actor.has(root)){
 		stack.push(root);
 		visited.add(root);
-		tail.push(root);
 		while(stack.length != 0){
 			var current = stack[stack.length-1];
 			for(let c of actor_to_actor.get(current)){
-				tail.push(current);
 				if(current == dest){
 					return tail;
 				}
@@ -55,7 +53,6 @@ function depthFirst(root, dest){
 						visited.add(c);
 						stack.push(c);
 					}
-					tail.pop();
 				}
 
 			}
@@ -66,7 +63,31 @@ function depthFirst(root, dest){
 	else{
 		console.log("Actor does not exist");
 	}
-	return tail
+}
+
+function dfs_paths(graph, start, goal){
+	"use strict";
+	var stack = [[start,[start]]];
+	var visited = new Set()
+
+	while(stack.length!=0){
+		var vertex,path;
+		console.log(stack)
+		var cur = stack.shift();
+		vertex = cur[0];
+		path = cur[1];
+		if(!visited.has(vertex)){
+			if(vertex == goal){
+				return path;
+			}
+			visited.add(vertex);
+			for(let neighbor of graph.get(vertex)){
+				stack.push([neighbor,path.concat([neighbor])]);
+			}
+		}
+
+	}
+	return ["None"];
 }
 
 //Resurive function that does not work, because graph is too big.
